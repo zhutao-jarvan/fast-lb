@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include "common.h"
 
-#define UNIX_DOMAIN "/var/run/hdslb_ctrl"
+#define UNIX_DOMAIN "/var/run/fastlb_ctrl"
 
 static inline int sockopt_msg_send(int clt_fd,
         const struct dpvs_sock_msg *hdr,

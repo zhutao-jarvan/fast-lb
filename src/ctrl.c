@@ -1093,7 +1093,7 @@ static inline int msg_term(void)
 
 /////////////////////////////// sockopt process msg ///////////////////////////////////////////
 
-#define UNIX_DOMAIN_DEF "/var/run/hdslb_ctrl"
+#define UNIX_DOMAIN_DEF "/var/run/fastlb_ctrl"
 char ipc_unix_domain[256];
 
 static struct list_head sockopt_list;

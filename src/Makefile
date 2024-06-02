@@ -21,7 +21,7 @@
 
 #DEBUG := 1		# enable for debug
 
-TARGET := hdslb
+TARGET := fastlb
 
 ifneq ("$(wildcard VERSION)","")
     VERSION_STRING := $(shell ./VERSION)
@@ -40,7 +40,7 @@ include $(SRCDIR)/config.mk
 INCDIRS += -I $(SRCDIR)/../include
 
 # for dpvs main program.
-CFLAGS += -D __DPVS__ -DHDSLB_VERSION=\"$(VERSION_STRING)\" -DHDSLB_BUILD_DATE=\"$(DATE_STRING)\"
+CFLAGS += -D __DPVS__ -DFASTLB_VERSION=\"$(VERSION_STRING)\" -DFASTLB_BUILD_DATE=\"$(DATE_STRING)\"
 
 #CFLAGS += -Wall -Werror -Wstrict-prototypes -Wmissing-prototypes -mcmodel=medium
 CFLAGS += -Wall -Wstrict-prototypes -Wmissing-prototypes -mcmodel=medium

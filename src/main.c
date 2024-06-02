@@ -36,7 +36,7 @@
 #include "sys_time.h"
 #include "route6.h"
 
-#define HDSLB    "hdslb"
+#define FASTLB    "FASTLB"
 #define RTE_LOGTYPE_DPVS RTE_LOGTYPE_USER1
 
 #define LCORE_CONF_BUFFER_LEN 4096
@@ -83,9 +83,9 @@ static int set_all_thread_affinity(void)
 static void dpvs_usage(const char *prgname)
 {
     printf("\nUsage: %s ", prgname);
-    printf("HDSLB application options:\n"
-            "   -v  version     display HDSLB version info\n"
-            "   -h  help        display HDSLB help info\n"
+    printf("FASTLB application options:\n"
+            "   -v  version     display FASTLB version info\n"
+            "   -h  help        display FASTLB help info\n"
     );
 }
 
@@ -111,8 +111,8 @@ static int parse_app_args(int argc, char **argv)
         switch (c) {
             case 'v':
                 fprintf(stderr, "dpvs version: %s, build on %s\n",
-                        HDSLB_VERSION,
-                        HDSLB_BUILD_DATE);
+                        FASTLB_VERSION,
+                        FASTLB_BUILD_DATE);
                 exit(EXIT_SUCCESS);
             case 'h':
                 dpvs_usage(prgname);
@@ -165,8 +165,8 @@ int main(int argc, char *argv[])
     argc -= err, argv += err;
 
     /* check if dpvs is running and remove zombie pidfile */
-    if (dpvs_running(HDSLB_PIDFILE)) {
-        fprintf(stderr, "hdslb is already running\n");
+    if (dpvs_running(FASTLB_PIDFILE)) {
+        fprintf(stderr, "FASTLB is already running\n");
         exit(EXIT_FAILURE);
     }
 
@@ -191,7 +191,7 @@ int main(int argc, char *argv[])
         rte_exit(EXIT_FAILURE, "Invalid EAL parameters\n");
     argc -= err, argv += err;
 
-    RTE_LOG(INFO, DPVS, "HDSLB version: %s, build on %s\n", HDSLB_VERSION, HDSLB_BUILD_DATE);
+    RTE_LOG(INFO, DPVS, "FASTLB version: %s, build on %s\n", FASTLB_VERSION, FASTLB_BUILD_DATE);
 
     rte_timer_subsystem_init();
 
@@ -268,7 +268,7 @@ int main(int argc, char *argv[])
 
     log_slave_init();
     /* write pid file */
-    if (!pidfile_write(HDSLB_PIDFILE, getpid()))
+    if (!pidfile_write(FASTLB_PIDFILE, getpid()))
         goto end;
 
     timer_sched_interval_us = dpvs_timer_sched_interval_get();
@@ -324,7 +324,7 @@ end:
     if ((err = cfgfile_term()) != 0)
         RTE_LOG(ERR, DPVS, "Fail to term configuration file: %s\n",
                 dpvs_strerror(err));
-    pidfile_rm(HDSLB_PIDFILE);
+    pidfile_rm(FASTLB_PIDFILE);
 
     exit(0);
 }
