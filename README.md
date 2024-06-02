@@ -89,9 +89,9 @@ $ cd <path-of-fastlb>/bin
 $ ./fastlb &
 ```
 
-## Test Full-NAT Load Balancer
+## Test DR Load Balancer
 
-Config fastlb as Full-NAT mode.
+Config fastlb as DR mode.
 
 ```bash
 #!/bin/sh -
@@ -108,15 +108,15 @@ Config fastlb as Full-NAT mode.
 # use ipvsadm --help for more info.
 ./ipvsadm -A -t 10.0.0.100:80 -s rr
 
-# add two RS for service, forwarding mode is FNAT (-b)
-./ipvsadm -a -t 10.0.0.100:80 -r 192.168.100.2 -b
-./ipvsadm -a -t 10.0.0.100:80 -r 192.168.100.3 -b
+# add two RS for service, forwarding mode is DR (-g)
+./ipvsadm -a -t 10.0.0.100:80 -r 192.168.100.2 -g
+./ipvsadm -a -t 10.0.0.100:80 -r 192.168.100.3 -g
 
 # add at least one Local-IP (LIP) for FNAT on LAN interface
 ./ipvsadm --add-laddr -z 192.168.100.200 -t 10.0.0.100:80 -F dpdk0
 ```
 
-Check if FNAT (two-arm) works.
+Check if DR works.
 ```bash
 client$ curl 10.0.0.100
 Your ip:port : 10.0.0.48:37177
